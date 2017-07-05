@@ -3,9 +3,6 @@ var GAME_POSITION = 0; // position of the screen from the start -> also player's
 var SCROLL_SPEED = 7;
 var prev_tile_num = 0;
 
-var player = new Image();
-player.src = "imgs/trex_40_44.png"
-player.style.zIndex = 1;
 var trex;
 
 $(document).ready( function() {
@@ -22,6 +19,10 @@ function init_game() {
 	ground_init_tiles();
 	clouds_init();
 	trex = new Player();
+
+	document.body.addEventListener("keydown", ekey_down);
+	document.body.addEventListener("keyup", ekey_up);
+	
 	GameScrolling();
 }
 
