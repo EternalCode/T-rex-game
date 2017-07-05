@@ -1,6 +1,7 @@
 var GAME_WIDTH = 840;
 var GAME_POSITION = 0; // position of the screen from the start
 var SCROLL_SPEED = 7;
+var prev_tile_num = 0;
 
 /* Image assets need to be preloaded for use on ready*/
 var ground_tiles = new Image();
@@ -22,8 +23,7 @@ function init_game() {
 
 	// initialize ground layers based on screen size + 1 tile
 	for (var i = 0; i < ((GAME_WIDTH / GROUND_TILE_LEN) + 1); i++) {
-		game_floor_tiles.push(new GameFloorTile(i, getRandomIntInclusive(0, (GROUND_IMAGE_LEN/GROUND_TILE_LEN)-1)));
-
+		game_floor_tiles.push(new GameFloorTile(i, getRandomIntInclusive(0, (GROUND_IMAGE_LEN / GROUND_TILE_LEN) - 1)));
 	}
 	GameScrolling();
 }
@@ -40,8 +40,12 @@ function GameScrolling() {
 	context.save();
 	context.translate(-GAME_POSITION, 0);
 
-	if (Math.floor(GAME_POSITION / GROUND_TILE_LEN) > 0) {
-		game_floor_tiles.push(new GameFloorTile(game_floor_tiles.length, getRandomIntInclusive(0, (GROUND_IMAGE_LEN/GROUND_TILE_LEN)-1)));
+	if (Math.floor(GAME_POSITION / GROUND_TILE_LEN) > prev_tile_num) {
+		prev_tile_num = Math.floor(GAME_POSITION / GROUND_TILE_LEN);
+		game_floor_tiles.splice(GAME_POSITION % GROUND_TILE_LEN, 1);
+		game_floor_tiles.push(new GameFloorTile (
+												game_floor_tiles[game_floor_tiles.length - 1].index + 1,
+												getRandomIntInclusive(0, (GROUND_IMAGE_LEN / GROUND_TILE_LEN) - 1)));
 	}
 
 	// draw
