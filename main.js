@@ -25,5 +25,27 @@ function init_game() {
 		game_floor_tiles.push(new GameFloorTile(i, getRandomIntInclusive(0, (GROUND_IMAGE_LEN/GROUND_TILE_LEN)-1)));
 
 	}
+	GameScrolling();
 }
+
+	
+function GameScrolling() {
+	var canvas = document.getElementById("trex_game");
+	var context = canvas.getContext("2d");
+	GAME_POSITION += SCROLL_SPEED;
+	
+	context.clearRect(0, 0, canvas.width, canvas.height);
+	context.fillStyle = "#FCFFE0";
+	context.fillRect(0, 0, canvas.width, canvas.height);
+	context.save();
+	context.translate(-GAME_POSITION, 0);
+
+	// draw
+	for (var i = 0; i < game_floor_tiles.length; i++) {
+		game_floor_tiles[i].draw(context, canvas);
+	}
+	context.restore();
+	requestAnimationFrame(GameScrolling);
+}
+
 
