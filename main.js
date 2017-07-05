@@ -40,6 +40,10 @@ function GameScrolling() {
 	context.save();
 	context.translate(-GAME_POSITION, 0);
 
+	if (Math.floor(GAME_POSITION / GROUND_TILE_LEN) > 0) {
+		game_floor_tiles.push(new GameFloorTile(game_floor_tiles.length, getRandomIntInclusive(0, (GROUND_IMAGE_LEN/GROUND_TILE_LEN)-1)));
+	}
+
 	// draw
 	for (var i = 0; i < game_floor_tiles.length; i++) {
 		game_floor_tiles[i].draw(context, canvas);
@@ -48,4 +52,23 @@ function GameScrolling() {
 	requestAnimationFrame(GameScrolling);
 }
 
+
+function GameFloorTile (index, tile) {
+	this.index = index;
+	this.tile = tile;
+
+
+	this.draw = function(context, canvas) {
+		context.drawImage(
+		ground_tiles,
+		this.tile * GROUND_TILE_LEN,
+		0,
+		GROUND_TILE_LEN,
+		GROUND_TILE_LEN,
+		this.index * GROUND_TILE_LEN,
+		canvas.height - GROUND_TILE_LEN,
+		GROUND_TILE_LEN,
+		GROUND_TILE_LEN);
+	}
+}
 
