@@ -14,7 +14,7 @@ var obstacles = [];
 
 function generate_rand_obstacle() {
 	var img;
-	var x = obstacles[obstacles.length - 1].x + getRandomIntInclusive(400, 600);
+	var x = obstacles[obstacles.length - 1].x + getRandomIntInclusive(300, 600);
 	var y = 400 - (28/2);
 	var obstacles_possible;
 	if (GAME_POSITION > 800) {
