@@ -61,26 +61,33 @@ function Player() {
 	}
 
 	this.input_handler = function() {
-		if ((this.acceleration.y > 0) || (this.y != this.lowest)) {
-			// user is in the air
+
+		if (keys[key_space] || keys[key_up_arrow]) {
+
+			if ((this.y < this.lowest - 40) || (this.acceleration.y < 0)) {
+				return;
+			}
+
+			this.acceleration.y += 5;
+			this.acceleration.y = constrain(this.acceleration.y, 0, 15);
 			return;
 		}
-		if (keys[key_space] || keys[key_up_arrow]) {
-			this.acceleration.y = 15;
-		} else if (keys[key_down_arrow]) {
+
+		if (keys[key_down_arrow]) {
 			this.img = player_duck;
 			this.y_size = 27;
 			this.x_size = 55;
 			this.ducking = true;
 			this.state = 0;
 			this.lowest = 400 - this.y_size - (28 / 2);
-		} else {
-			this.img = player_standing;
-			this.y_size = 44;
-			this.x_size = 40;
-			this.ducking = false;
-			this.lowest = 400 - this.y_size - (28 / 2);
+			this.acceleration.y -= 2;
+			return;
 		}
+		this.img = player_standing;
+		this.y_size = 44;
+		this.x_size = 40;
+		this.ducking = false;
+		this.lowest = 400 - this.y_size - (28 / 2);
 	}
 
 	this.draw = function(context) {
