@@ -23,7 +23,7 @@ function Player() {
 		this.input_handler();
 		this.x = GAME_POSITION + 20;
 		/* decay vertical acceleration and apply to y position */
-		this.acceleration.y -= 2;
+		this.acceleration.y -= 1;
 		this.y -= this.acceleration.y;
 		// constrain y position, additionally normalize acceleration
 		this.y = constrain(this.y, 0, this.lowest);
@@ -66,7 +66,7 @@ function Player() {
 			return;
 		}
 		if (keys[key_space] || keys[key_up_arrow]) {
-			this.acceleration.y = 22;
+			this.acceleration.y = 15;
 		} else if (keys[key_down_arrow]) {
 			this.img = player_duck;
 			this.y_size = 27;
