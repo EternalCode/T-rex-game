@@ -51,6 +51,9 @@ function game_scrolling() {
 	ground_tiles_draw(context, canvas);
 	clouds_draw(context);
 	obstacles_draw(context);
+	if (game_over) {
+		trex.state = 3;
+	}
 	trex.draw(context);
 
 	context.restore();
