@@ -5,6 +5,7 @@ var prev_tile_num = 0;
 
 var trex;
 var game_over = false;
+var high_score = 0;
 
 $(document).ready( function() {
 	init_game();
@@ -53,7 +54,16 @@ function game_scrolling() {
 	trex.draw(context);
 
 	context.restore();
+
+	context.fillStyle = "#545659";
+	context.font = "20px Roboto Mono";
+	font_len = context.measureText("Score: " + GAME_POSITION).width
+	context.fillText("Score: " + (GAME_POSITION - GAME_WIDTH), canvas.width - font_len - 20, 40);
+
 	if (game_over) {
+		if ((GAME_POSITION - GAME_WIDTH) > high_score) {
+			high_score = GAME_POSITION - GAME_WIDTH;
+		}
 		// text score draw
 		context.fillStyle = "#545659";
 		context.font = "50px Roboto Mono";
@@ -62,8 +72,8 @@ function game_scrolling() {
 
 		context.fillStyle = "#545659";
 		context.font = "20px Roboto Mono";
-		font_len = context.measureText("Score: " + GAME_POSITION).width
-		context.fillText("Score: " + (GAME_POSITION - GAME_WIDTH), canvas.width/2 - (font_len / 2), 180);
+		font_len = context.measureText("HighScore: " + high_score).width
+		context.fillText("HighScore: " + high_score, canvas.width/2 - (font_len / 2), 180);
 
 		context.fillStyle = "#545659";
 		context.font = "25px Roboto Mono";
@@ -82,7 +92,8 @@ function game_restart(event) {
 		game_floor_tiles = [];
 		GAME_POSITION = 0;
 		prev_tile_num = 0;
-		init_game();
 		game_over = false;
+		init_game();
+		
 	}
 }
