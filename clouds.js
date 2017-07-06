@@ -27,7 +27,7 @@ function clouds_update() {
 function Cloud(x, y) {
 	this.x = x;
 	this.y = y;
-	this.acceleration = SCROLL_SPEED / 1.5;
+	this.acceleration = SCROLL_SPEED / 1.2;
 	this.update = function() {
 		if ((this.x + 47) < GAME_POSITION) {
 			this.x = getRandomIntInclusive((GAME_POSITION + GAME_WIDTH), (GAME_POSITION + GAME_WIDTH) * 2);
